@@ -1,0 +1,26 @@
+{
+  "说明": "虚构收支明细小样例：含部分退款抵销、时间窗口内外的环、共用流水。金额单位为元，内部换算为整数分。",
+  "transactions": [
+    {"txn_id": "t1", "date": "2026-01-05", "from_account": "A", "to_account": "B", "amount": 100, "doc_ref": "PO-1", "memo": "虚构货款"},
+    {"txn_id": "t2", "date": "2026-01-08", "from_account": "B", "to_account": "C", "amount": 60, "doc_ref": "PO-2", "memo": "虚构货款"},
+    {"txn_id": "t3", "date": "2026-01-10", "from_account": "C", "to_account": "A", "amount": 60, "doc_ref": "PO-3", "memo": "虚构货款"},
+    {"txn_id": "t4", "date": "2026-01-12", "from_account": "B", "to_account": "A", "amount": 40, "doc_ref": "RF-1", "memo": "虚构退款（凭单据 RF-1 退 t1 部分货款）", "is_refund": true},
+    {"txn_id": "t5", "date": "2026-01-15", "from_account": "A", "to_account": "D", "amount": 50, "doc_ref": "PO-4", "memo": "虚构货款"},
+    {"txn_id": "t6", "date": "2026-01-17", "from_account": "D", "to_account": "B", "amount": 50, "doc_ref": "PO-5", "memo": "虚构货款"},
+    {"txn_id": "t7", "date": "2026-01-19", "from_account": "B", "to_account": "A", "amount": 30, "doc_ref": "PO-6", "memo": "虚构货款"},
+    {"txn_id": "t8", "date": "2026-02-20", "from_account": "A", "to_account": "B", "amount": 10, "doc_ref": "PO-7", "memo": "虚构货款（窗口外长尾）"},
+    {"txn_id": "t9", "date": "2026-02-21", "from_account": "B", "to_account": "A", "amount": 10, "doc_ref": "PO-8", "memo": "虚构货款（与 t8 构成短环）"}
+  ],
+  "refunds": [
+    {"refund_id": "r1", "date": "2026-01-12", "from_account": "B", "to_account": "A", "amount": 40, "original_txn_id": "t1", "doc_ref": "RF-1", "memo": "虚构部分退款"}
+  ],
+  "config": {
+    "max_span_days": 30,
+    "max_chain_edges": 6,
+    "min_chain_edges": 2,
+    "strict_time": false,
+    "blocked_accounts": [],
+    "allowed_accounts": null,
+    "max_candidates": 1000
+  }
+}

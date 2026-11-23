@@ -1,0 +1,40 @@
+{
+  "说明": "虚构收支明细大样例：6 家虚构公司，含环间共用流水、同日流转、多次部分退款、账户限制与时间窗口外环。全部为虚构数据，不接银行账户。",
+  "transactions": [
+    {"txn_id": "p01", "date": "2026-03-02", "from_account": "甲公司", "to_account": "乙公司", "amount": 1000, "doc_ref": "DOC-01", "memo": "虚构采购款"},
+    {"txn_id": "p02", "date": "2026-03-03", "from_account": "乙公司", "to_account": "丙公司", "amount": 800, "doc_ref": "DOC-02", "memo": "虚构采购款"},
+    {"txn_id": "p03", "date": "2026-03-04", "from_account": "丙公司", "to_account": "甲公司", "amount": 700, "doc_ref": "DOC-03", "memo": "虚构销售回款"},
+    {"txn_id": "p04", "date": "2026-03-05", "from_account": "甲公司", "to_account": "丁公司", "amount": 500, "doc_ref": "DOC-04", "memo": "虚构服务费"},
+    {"txn_id": "p05", "date": "2026-03-05", "from_account": "丁公司", "to_account": "乙公司", "amount": 500, "doc_ref": "DOC-05", "memo": "虚构服务费（同日流转）"},
+    {"txn_id": "p06", "date": "2026-03-06", "from_account": "乙公司", "to_account": "甲公司", "amount": 300, "doc_ref": "DOC-06", "memo": "虚构退款冲抵前的往来"},
+    {"txn_id": "p07", "date": "2026-03-08", "from_account": "乙公司", "to_account": "戊公司", "amount": 400, "doc_ref": "DOC-07", "memo": "虚构货款"},
+    {"txn_id": "p08", "date": "2026-03-09", "from_account": "戊公司", "to_account": "丙公司", "amount": 400, "doc_ref": "DOC-08", "memo": "虚构货款"},
+    {"txn_id": "p09", "date": "2026-03-10", "from_account": "丙公司", "to_account": "甲公司", "amount": 250, "doc_ref": "DOC-09", "memo": "虚构回款"},
+    {"txn_id": "p10", "date": "2026-03-12", "from_account": "甲公司", "to_account": "己公司", "amount": 350, "doc_ref": "DOC-10", "memo": "虚构预付款"},
+    {"txn_id": "p11", "date": "2026-03-13", "from_account": "己公司", "to_account": "乙公司", "amount": 350, "doc_ref": "DOC-11", "memo": "虚构预付款转付"},
+    {"txn_id": "p12", "date": "2026-03-14", "from_account": "乙公司", "to_account": "甲公司", "amount": 200, "doc_ref": "DOC-12", "memo": "虚构往来款"},
+    {"txn_id": "p13", "date": "2026-03-16", "from_account": "丁公司", "to_account": "戊公司", "amount": 150, "doc_ref": "DOC-13", "memo": "虚构货款"},
+    {"txn_id": "p14", "date": "2026-03-17", "from_account": "戊公司", "to_account": "丁公司", "amount": 150, "doc_ref": "DOC-14", "memo": "虚构货款（与 p13 两日短环）"},
+    {"txn_id": "p15", "date": "2026-03-20", "from_account": "丙公司", "to_account": "丁公司", "amount": 220, "doc_ref": "DOC-15", "memo": "虚构货款"},
+    {"txn_id": "p16", "date": "2026-03-22", "from_account": "丁公司", "to_account": "丙公司", "amount": 180, "doc_ref": "DOC-16", "memo": "虚构退货后剩余往来"},
+    {"txn_id": "p17", "date": "2026-05-01", "from_account": "甲公司", "to_account": "乙公司", "amount": 260, "doc_ref": "DOC-17", "memo": "虚构货款（跨月，与 3 月边超出 30 天窗口）"},
+    {"txn_id": "p18", "date": "2026-05-03", "from_account": "乙公司", "to_account": "甲公司", "amount": 260, "doc_ref": "DOC-18", "memo": "虚构货款（仅与 p17 构成窗口内短环）"},
+    {"txn_id": "p19", "date": "2026-03-18", "from_account": "乙公司", "to_account": "甲公司", "amount": 120, "doc_ref": "DOC-19", "memo": "虚构退款流水", "is_refund": true},
+    {"txn_id": "p20", "date": "2026-03-19", "from_account": "丁公司", "to_account": "丙公司", "amount": 40, "doc_ref": "DOC-20", "memo": "虚构退款流水", "is_refund": true},
+    {"txn_id": "p21", "date": "2026-03-25", "from_account": "丁公司", "to_account": "丙公司", "amount": 30, "doc_ref": "DOC-21", "memo": "虚构退款流水（退 p15）", "is_refund": true}
+  ],
+  "refunds": [
+    {"refund_id": "rf1", "date": "2026-03-18", "from_account": "乙公司", "to_account": "甲公司", "amount": 120, "original_txn_id": "p01", "doc_ref": "DOC-19", "memo": "虚构部分退款（退 DOC-01）"},
+    {"refund_id": "rf2", "date": "2026-03-19", "from_account": "丁公司", "to_account": "丙公司", "amount": 40, "original_txn_id": "p02", "doc_ref": "DOC-20", "memo": "虚构退款，单据指向 DOC-02 但账户方向不匹配，用于演示校验失败"},
+    {"refund_id": "rf3", "date": "2026-03-25", "from_account": "丁公司", "to_account": "丙公司", "amount": 30, "original_txn_id": "p15", "doc_ref": "DOC-21", "memo": "虚构部分退款（退 DOC-15）"}
+  ],
+  "config": {
+    "max_span_days": 30,
+    "max_chain_edges": 6,
+    "min_chain_edges": 2,
+    "strict_time": false,
+    "blocked_accounts": ["己公司"],
+    "allowed_accounts": null,
+    "max_candidates": 2000
+  }
+}

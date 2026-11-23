@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>资金往来闭合关系分析系统</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>资金往来闭合关系分析</h1>
+      <span class="badge">虚构明细 · 不接银行账户</span>
+    </div>
+    <div class="controls">
+      <label>解释目标
+        <select id="objective">
+          <option value="max_closure">最大闭合金额</option>
+          <option value="min_chains">最少链条（保持最大闭合）</option>
+        </select>
+      </label>
+      <button id="btn-recompute" class="btn">后台重算</button>
+      <span class="version">版本 <b id="version">-</b></span>
+    </div>
+  </header>
+
+  <div id="disclaimer" class="disclaimer"></div>
+  <div id="conflict-banner" class="conflict-banner hidden"></div>
+  <div id="refund-banner" class="refund-banner hidden"></div>
+
+  <main class="layout">
+    <!-- 左：时间线资金流 -->
+    <section class="panel panel-wide">
+      <div class="panel-head">
+        <h2>资金流水时间线</h2>
+        <span class="hint">点击业务边可人工排除 / 恢复；已用额度按当前草稿解统计</span>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <!-- 右：候选链与解 -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>候选闭合链与解释方案</h2>
+        <span class="hint">点击链查看每笔使用金额与剩余金额</span>
+      </div>
+
+      <div class="solution-tabs" id="solution-tabs"></div>
+      <div id="solution-summary" class="solution-summary"></div>
+      <div id="chain-list" class="chain-list"></div>
+
+      <div class="confirmed-block">
+        <h3>已确认解释（重算不可覆盖）</h3>
+        <div id="confirmed-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 链详情抽屉 -->
+  <div id="drawer-mask" class="drawer-mask hidden"></div>
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-head">
+      <h3 id="drawer-title">链详情</h3>
+      <button id="drawer-close" class="btn btn-ghost">关闭</button>
+    </div>
+    <div id="drawer-body"></div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
